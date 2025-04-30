@@ -1,0 +1,99 @@
+/* Basic body styling */
+body {
+    font-family: 'Inter', sans-serif; /* Match the font from the previous example */
+    line-height: 1.6;
+    color: #333; /* Dark gray text */
+    background-color: #f4f4f4; /* Light gray background */
+    margin: 0;
+    padding: 20px; /* Add some padding around the content */
+}
+
+/* Container for main content */
+.container {
+    max-width: 960px; /* Limit content width */
+    margin: 20px auto; /* Center the container */
+    padding: 20px;
+    background-color: #fff; /* White background for content area */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Heading styles */
+h1, h2, h3 {
+    color: #2c3e50; /* Darker blue-gray for headings */
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 2em; /* Larger size for main headings */
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+/* Basic table styling */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between borders */
+    margin-top: 20px;
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures border-radius clips content */
+}
+
+th, td {
+    padding: 12px 15px; /* Padding within cells */
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Horizontal lines between rows */
+}
+
+th {
+    background-color: #f8f8f8; /* Very light gray background for headers */
+    font-weight: 600; /* Bolder font for headers */
+    text-transform: uppercase; /* Uppercase header text */
+    font-size: 0.85em;
+    color: #555;
+}
+
+/* Add alternating row colors for readability (optional) */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Basic link styling */
+a {
+    color: #3498db; /* Blue color for links */
+    text-decoration: none; /* Remove underline by default */
+}
+
+a:hover {
+    text-decoration: underline; /* Add underline on hover */
+    color: #2980b9; /* Darker blue on hover */
+}
+
+/* Basic button styling (example) */
+.button, button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db; /* Blue background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease; /* Smooth transition on hover */
+}
+
+.button:hover, button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Paragraph styling */
+p {
+    margin-bottom: 1em;
+}
