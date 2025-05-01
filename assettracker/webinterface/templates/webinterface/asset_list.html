@@ -1,0 +1,102 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'webinterface/style.css' %}">
+
+<html lang="en">
+<body>
+
+    <div>
+        <h1>Available Assets</h1>
+
+        {% if assets %}
+            <div>
+                <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col">
+                                Name
+                            </th>
+                            <th scope="col">
+                                Description
+                            </th>
+                            <th scope="col">
+                                Home Location
+                            </th>
+                            </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for asset in assets %}
+                            <tr>
+                                <td>
+                                    {{ asset.name }}
+                                </td>
+                                <td>
+                                    {{ asset.description|default_if_none:"N/A" }}
+                                </td>
+                                <td>
+                                    {{ asset.home_location }}
+                                </td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No assets are currently available.</p>
+        {% endif %}
+        
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold mb-6 text-gray-800">Recent Activity (Last 10 Checkouts)</h2>
+
+        {% if recent_checkouts %}
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Asset
+                            </th>
+                            <th scope="col">
+                                User
+                            </th>
+                            <th scope="col">
+                                Checkout Time
+                            </th>
+                            <th scope="col">
+                                Expected Return
+                            </th>
+                            <th scope="col">
+                                Checkin Time
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for checkout in recent_checkouts %}
+                            <tr>
+                                <td>
+                                    {{ checkout.asset.name }} </td>
+                                <td>
+                                    {{ checkout.user.get_full_name|default:checkout.user.username }}
+                                </td>
+                                <td>
+                                    {{ checkout.checkout_time|date:"Y-m-d H:i" }}
+                                </td>
+                                <td>
+                                    {{ checkout.expected_return_date|date:"Y-m-d" }}
+                                </td>
+                                <td>
+                                    {{ checkout.checkin_time|date:"Y-m-d H:i"|default:"Still Out" }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-gray-500">No recent checkout activity.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

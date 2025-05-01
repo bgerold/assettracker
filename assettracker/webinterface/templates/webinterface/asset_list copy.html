@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'webinterface/style.css' %}">
+
+<html lang="en">
+<body>
+
+    <div>
+        <h1>Available Assets</h1>
+
+        {% if assets %}
+            <div class="overflow-x-auto">
+                <table>
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col">
+                                Name
+                            </th>
+                            <th scope="col">
+                                Description
+                            </th>
+                            <th scope="col">
+                                Home Location
+                            </th>
+                            </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for asset in assets %}
+                            <tr>
+                                <td>
+                                    {{ asset.name }}
+                                </td>
+                                <td>
+                                    {{ asset.description|default_if_none:"N/A" }}
+                                </td>
+                                <td>
+                                    {{ asset.home_location }}
+                                </td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No assets are currently available.</p>
+        {% endif %}
+        
+    </div>
+
+    <div>
+        <h1>Checkouts</h1>
+    </div>
+
+</body>
+</html>

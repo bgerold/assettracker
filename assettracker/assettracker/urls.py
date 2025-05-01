@@ -5,3 +5,4 @@ urlpatterns = [
     path("webinterface/", include("webinterface.urls")),
     path('admin/', admin.site.urls),
 ]
+
