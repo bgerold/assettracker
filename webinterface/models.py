@@ -1,11 +1,9 @@
 from django.db import models
 from django.conf import settings
-from django.utils import timezone # Often useful for default timestamps
+from django.utils import timezone 
 
+# Trackable asset model
 class Asset(models.Model):
-  """
-  Model representing a trackable asset.
-  """
   name = models.CharField(max_length=200)
   description = models.TextField(null=True, blank=True)
   home_location = models.CharField(max_length=255)
@@ -16,12 +14,8 @@ class Asset(models.Model):
   def __str__(self):
     return self.name
 
-
+# Model for login check-outs & check-ins
 class Checkout(models.Model):
-  """
-  Model representing a check-out/check-in event log.
-  """
-
   user = models.ForeignKey(
       settings.AUTH_USER_MODEL,
       on_delete=models.PROTECT,
