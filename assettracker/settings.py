@@ -123,3 +123,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = ['*']
+
+# Settings for outbound email server
+SENDGRID_API_KEY = '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'
+
+LOGIN_REDIRECT_URL = '/webinterface/'
+LOGOUT_REDIRECT_URL = '/webinterface/'

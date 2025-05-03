@@ -2,7 +2,36 @@
 <link rel="stylesheet" href="{% static 'webinterface/style.css' %}">
 
 <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Tracker</title>
+</head>
+
 <body>
+    {# User Info and Logout #}
+    <div style="padding: 10px; margin-bottom: 15px; background-color: #eee; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.get_full_name|default:user.username }}!</span>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="button" style="background-color: #e74c3c; padding: 5px 10px; font-size: 0.9em;">Logout</button>
+            </form>
+        {% else %}
+            <span>Welcome, Guest! Please <a href="{% url 'login' %}">log in</a>.</span>
+        {% endif %}
+    </div>
+
+    {% if messages %}
+    <ul class="messages" style="list-style: none; padding: 10px; margin-bottom: 15px; border-radius: 5px; background-color: #e0e0e0;">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" style="padding: 5px; margin-bottom: 5px; border: 1px solid; {% if message.tags == 'success' %}border-color: green; color: green; background-color: #e6ffe6;{% elif message.tags == 'error' %}border-color: red; color: red; background-color: #ffe6e6;{% else %}border-color: orange; color: orange; background-color: #fff0e6;{% endif %}"{% endif %}>
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
     <div>
         <h1>Available Assets</h1>
@@ -34,6 +63,19 @@
                                 </td>
                                 <td>
                                     {{ asset.home_location }}
+                                </td>
+                                <td>
+                                    {% if asset.is_checked_out %}
+                                        <form action="{% url 'webinterface:checkin_asset' asset.active_checkout_id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="button">Check In</button>
+                                        </form>
+                                    {% else %}
+                                        <form action="{% url 'webinterface:checkout_asset' asset.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="button">Check Out</button>
+                                        </form>
+                                    {% endif %}
                                 </td>
                                 </tr>
                         {% endfor %}

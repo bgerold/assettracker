@@ -9,6 +9,8 @@ urlpatterns = [
     # URL route for the 'webinterface' Django Application
     path("webinterface/", include("webinterface.urls")),
 
+    path('accounts/', include('django.contrib.auth.urls')),
+
     # URL route for the builtin admin applicaiton
     path('admin/', admin.site.urls),
 ]
