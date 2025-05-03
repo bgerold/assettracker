@@ -39,7 +39,7 @@ class CustomUserAdmin(BaseUserAdmin):
         
         if "test_email" in request.POST:
             result = send_email(username, 1)
-            self.message_user(request, f"Sending test EMmail notification to {username} completed with status {result}")
+            self.message_user(request, f"Sending test Email notification to {username} completed with status {result}")
             return HttpResponseRedirect(".")
 
 
