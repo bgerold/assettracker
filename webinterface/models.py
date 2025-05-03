@@ -1,6 +1,26 @@
 from django.db import models
 from django.conf import settings
-from django.utils import timezone 
+from django.utils import timezone
+from django.core.validators import RegexValidator
+
+# Update default Django user model to add user phone number
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile'
+    )
+
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\s?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$',
+        message="Phone number must be entered in the format: '+1 (999) 999-9999'. Up to 15 digits allowed."
+    )
+
+    # Apply the validator to the phone_number field
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
 
 # Trackable asset model
 class Asset(models.Model):
