@@ -15,7 +15,3 @@ def index(request):
     }
 
     return render(request, 'webinterface/asset_list.html', context)
-
-def asset(request, asset_id):
-    response = "You're looking at an asset %s."
-    return HttpResponse(response % asset_id)
