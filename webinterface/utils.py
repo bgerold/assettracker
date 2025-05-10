@@ -6,6 +6,7 @@ from .models import Asset
 import logging
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from twilio.rest import Client
 
 # Create a logger instance
 logger = logging.getLogger(__name__)
@@ -40,9 +41,6 @@ def send_email(username, assetid):
     try:
         sg = SendGridAPIClient(api_key)
         response = sg.send(message)
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
     
     except Exception as e:
         print(e)
@@ -65,6 +63,26 @@ def send_sms(username, assetid):
         logger.error("Asset %s does not exist" % assetid)
         return "Invalid Asset ID"
     
-    print(user_object.profile.phone_number)
+    to_phone_number = "+1" + user_object.profile.phone_number
+    content = f"Asset {asset_object.name} ({asset_object.description}) is more than 24 hours overdue"
+    print(to_phone_number)
+
+    try:
+        account_sid = settings.TWILIO_ACCOUNT_SID
+        auth_token = settings.TWILIO_AUTH_TOKEN
+        from_phone_number = settings.TWILIO_FROM_NUMBER
+        client = Client(account_sid, auth_token)
+
+        message = client.messages.create(
+            body=content,
+            from_=from_phone_number,
+            to=to_phone_number,
+        )
+
+        print(message.body)
+    except:
+        logger.error("Failed to send message to Twilio API")
+        #raise
+        return "Failed to send message to Twilio API"
 
     return "Success"

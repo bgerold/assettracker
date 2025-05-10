@@ -84,6 +84,7 @@ a:hover {
     font-size: 1em;
     text-align: center;
     text-decoration: none;
+    min-width: 150px;
     transition: background-color 0.2s ease; /* Smooth transition on hover */
 }
 
