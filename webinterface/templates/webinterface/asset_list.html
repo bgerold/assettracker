@@ -11,7 +11,7 @@
 
 <body>
     {# User Info and Logout #}
-    <div style="padding: 10px; margin-bottom: 15px; background-color: #eee; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+    <div class="user-banner" style="padding: 10px; margin-bottom: 15px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
         {% if user.is_authenticated %}
             <span>Welcome, {{ user.get_full_name|default:user.username }}!</span>
             <form action="{% url 'logout' %}" method="post" style="display: inline;">

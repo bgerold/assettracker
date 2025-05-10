@@ -1,100 +1,124 @@
-/* Basic body styling */
+/* Basic body styling - Dark Theme */
 body {
-    font-family: 'Inter', sans-serif; /* Match the font from the previous example */
+    font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    color: #333; /* Dark gray text */
-    background-color: #f4f4f4; /* Light gray background */
+    color: #e0e0e0;
+    background-color: #121212;
     margin: 0;
-    padding: 20px; /* Add some padding around the content */
-}
-
-/* Container for main content */
-.container {
-    max-width: 960px; /* Limit content width */
-    margin: 20px auto; /* Center the container */
     padding: 20px;
-    background-color: #fff; /* White background for content area */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Heading styles */
+/* Container for main content - Dark Theme */
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2c2c2c;
+}
+
+/* Heading styles - Dark Theme */
 h1, h2, h3 {
-    color: #2c3e50; /* Darker blue-gray for headings */
+    color: #f5f5f5;
     margin-bottom: 0.75em;
 }
 
 h1 {
-    font-size: 2em; /* Larger size for main headings */
+    font-size: 2em;
 }
 
 h2 {
     font-size: 1.5em;
 }
 
-/* Basic table styling */
+/* Basic table styling - Dark Theme */
 table {
     width: 100%;
-    border-collapse: collapse; /* Remove space between borders */
+    border-collapse: collapse;
     margin-top: 20px;
-    border: 1px solid #ddd; /* Light gray border */
-    border-radius: 8px; /* Rounded corners for the table */
-    overflow: hidden; /* Ensures border-radius clips content */
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 12px 15px; /* Padding within cells */
+    padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd; /* Horizontal lines between rows */
+    border-bottom: 1px solid #3a3a3a;
 }
 
 th {
-    background-color: #f8f8f8; /* Very light gray background for headers */
-    font-weight: 600; /* Bolder font for headers */
-    text-transform: uppercase; /* Uppercase header text */
+    background-color: #2c2c2c;
+    font-weight: 600;
+    text-transform: uppercase;
     font-size: 0.85em;
-    color: #555;
+    color: #cccccc;
 }
 
-/* Add alternating row colors for readability (optional) */
+/* Add alternating row colors for readability  - Dark Theme */
 tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #232323;
+}
+tbody tr:nth-child(odd) {
+    background-color: #1e1e1e;
 }
 
-/* Basic link styling */
+
+/* Basic link styling - Dark Theme */
 a {
-    color: #3498db; /* Blue color for links */
-    text-decoration: none; /* Remove underline by default */
+    color: #58a6ff;
+    text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline; /* Add underline on hover */
-    color: #2980b9; /* Darker blue on hover */
+    text-decoration: underline;
+    color: #80baff;
 }
 
-/* Basic button styling (example) */
+/* Basic button styling - Dark Theme */
 .button, button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #3498db; /* Blue background */
-    color: #fff; /* White text */
-    border: none;
-    border-radius: 5px; /* Rounded corners */
+    background-color: #3498db;
+    color: #ffffff;
+    border: 1px solid #2980b9;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
     text-align: center;
     text-decoration: none;
     min-width: 150px;
-    transition: background-color 0.2s ease; /* Smooth transition on hover */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .button:hover, button:hover {
-    background-color: #2980b9; /* Darker blue on hover */
-    color: #fff;
+    background-color: #2980b9;
+    color: #ffffff;
     text-decoration: none;
+    border-color: #2374a8;
 }
 
-/* Paragraph styling */
+/* Paragraph styling - Dark Theme */
 p {
     margin-bottom: 1em;
+    color: #c9c9c9;
+}
+
+/* Styling for messages */
+.messages .success {
+    border-color: #38761d;
+    color: #a6e3a1;
+    background-color: #1f3c20;
+}
+.messages .error {
+    border-color: #a03131;
+    color: #f8baba;
+    background-color: #4d1a1a;
+}
+.messages .info, .messages .warning {
+    border-color: #b47800;
+    color: #ffd966;
+    background-color: #4a360e;
 }
