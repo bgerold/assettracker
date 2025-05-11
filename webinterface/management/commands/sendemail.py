@@ -1,3 +1,5 @@
+# Managment command parser for sending test email notificaitons to a specified user
+
 from django.core.management.base import BaseCommand
 from webinterface.utils import send_email
 
@@ -6,11 +8,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('username', type=str, help='Username to send test email to')
-        parser.add_argument('assetid', type=int, help="Asset ID value for overdue asset")
 
     def handle(self, *args, **options):
         username = options['username']
-        assetid = options['assetid']
         
-        send_email(username, assetid)
+        send_email(username, "Test Message")
 

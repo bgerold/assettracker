@@ -33,12 +33,12 @@ class CustomUserAdmin(BaseUserAdmin):
         username = obj.username
 
         if "test_sms" in request.POST:
-            result = send_sms(username, 1)
+            result = send_sms(username, "Test Message")
             self.message_user(request, f"Sending test notification to {username} complted with status {result}")
             return HttpResponseRedirect(".")
         
         if "test_email" in request.POST:
-            result = send_email(username, 1)
+            result = send_email(username, "Test Message")
             self.message_user(request, f"Sending test notification to {username} complted with status {result}")
             return HttpResponseRedirect(".")
 

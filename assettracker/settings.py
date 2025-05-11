@@ -133,3 +133,36 @@ LOGOUT_REDIRECT_URL = '/webinterface/'
 TWILIO_ACCOUNT_SID = "AC3698775ab2f09980cf932f3d9c368030"
 TWILIO_AUTH_TOKEN = "f32a11e56de433f2130094da09aa06ad"
 TWILIO_FROM_NUMBER = "+18339763202"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
