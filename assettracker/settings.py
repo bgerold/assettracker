@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +167,7 @@ LOGGING = {
         },
     },
 }
+
+CRONJOBS = [
+    ('0 0 * * *', 'webinterface.utils.send_overdue_asset_notifications')
+]
