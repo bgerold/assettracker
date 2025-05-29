@@ -1,0 +1,60 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'webinterface/style.css' %}">
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+
+
+{% block content %}
+<div class="container">
+    <h2>Checkout Asset: {{ asset.name }}</h2>
+    <p><strong>Description:</strong> {{ asset.description|default_if_none:"N/A" }}</p>
+    <p><strong>Home Location:</strong> {{ asset.home_location }}</p>
+    
+    <hr style="margin: 20px 0;">
+
+    <form method="post" action="{% url 'webinterface:checkout_asset' asset.id %}">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="form-errors" style="color: red; margin-bottom: 10px;">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="{{ form.expected_return_date.id_for_label }}" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.expected_return_date.label }}</label>
+            {{ form.expected_return_date }}
+            {% if form.expected_return_date.errors %}
+                <div class="field-errors" style="color: red; font-size: 0.9em; margin-top: 5px;">
+                    {% for error in form.expected_return_date.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="{{ form.checkout_reason.id_for_label }}" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.checkout_reason.label }}</label>
+            {{ form.checkout_reason }}
+            {% if form.checkout_reason.errors %}
+                <div class="field-errors" style="color: red; font-size: 0.9em; margin-top: 5px;">
+                    {% for error in form.checkout_reason.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="button" style="padding: 10px 15px;">Confirm Checkout</button>
+        <a href="{% url 'webinterface:index' %}" class="button" style="margin-left: 10px 15px; text-decoration:none;">Cancel</a>
+    </form>
+</div>
+{% endblock %}
