@@ -8,6 +8,18 @@ from datetime import timedelta
 from django.utils import timezone
 from .models import Asset, Checkout
 from django.db import transaction
+from django import forms
+
+class CheckoutForm(forms.Form):
+    expected_return_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}), 
+        label="Expected Return Date"
+    )
+    checkout_reason = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 3}), 
+        label="Reason for Checkout (Optional)",
+        required=False 
+    )
 
 def index(request):
     # Subquery to find the ID of the active checkout for an asset
@@ -41,34 +53,31 @@ def index(request):
 
 @login_required # Ensure user is logged in
 def checkout_asset_view(request, asset_id):
-    if request.method != 'POST':
-        messages.error(request, "Invalid request method.")
-        return redirect('webinterface:index')
+    asset = get_object_or_404(Asset, pk=asset_id)
 
-    try:
-        with transaction.atomic():
-            asset_to_checkout = get_object_or_404(Asset, pk=asset_id, is_active=True)
-            is_already_checked_out = Checkout.objects.filter(
-                asset=asset_to_checkout,
-                checkin_time__isnull=True
-            ).exists()
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
 
-            if is_already_checked_out:
-                messages.error(request, f"'{asset_to_checkout.name}' is already checked out.")
-                return redirect('webinterface:index')
-            default_return_date = timezone.now().date() + timedelta(days=7)
-            new_checkout = Checkout.objects.create(
-                asset=asset_to_checkout,
+            Checkout.objects.create(
+                asset=asset,
                 user=request.user,
                 checkout_time=timezone.now(),
-                expected_return_date=default_return_date,
+                expected_return_date=form.cleaned_data['expected_return_date'],
+                checkout_reason=form.cleaned_data['checkout_reason']
             )
-            messages.success(request, f"Successfully checked out '{asset_to_checkout.name}'. Please return by {default_return_date.strftime('%Y-%m-%d')}.")
+            messages.success(request, f"Asset '{asset.name}' checked out successfully.")
+            return redirect('webinterface:index')
+        else:
+            # Form is invalid, re-render the page with errors
+            pass
+    else:
+        form = CheckoutForm()
 
-    except Exception as e:
-        messages.error(request, f"An error occurred during checkout: {e}")
-
-    return redirect('webinterface:index')
+    return render(request, 'webinterface/checkout_details.html', {
+        'form': form,
+        'asset': asset
+    })
 
 # HTTP Post to updated asset to a status of "checked in"
 @login_required # Ensure user is logged in
