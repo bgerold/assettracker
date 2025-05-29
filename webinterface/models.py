@@ -31,6 +31,17 @@ class Asset(models.Model):
   purchaser = models.CharField(max_length=100, null=True, blank=True)
   is_active = models.BooleanField(default=True)
 
+  @property
+  def current_checkout(self):
+      return self.checkouts.filter(checkin_time__isnull=True).order_by('-checkout_time').first()
+
+  @property
+  def is_overdue(self):
+      active_checkout = self.current_checkout 
+      if active_checkout and active_checkout.expected_return_date:
+          return active_checkout.expected_return_date < timezone.now().date()
+      return False
+
   def __str__(self):
     return self.name
 

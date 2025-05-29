@@ -57,7 +57,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         {% for asset in assets %}
-                            <tr>
+                            <tr {% if asset.is_checked_out and asset.is_overdue %}class="overdue-asset-row"{% endif %}>
                                 <td>
                                     {{ asset.name }}
                                 </td>
@@ -73,6 +73,9 @@
                                             {% csrf_token %}
                                             <button type="submit" class="button">Check In</button>
                                         </form>
+                                        {% if asset.is_overdue %}
+                                            <span class="overdue-text-indicator">OVERDUE</span>
+                                        {% endif %}
                                     {% else %}
                                         <form action="{% url 'webinterface:checkout_asset' asset.id %}" method="post" style="display: inline;">
                                             {% csrf_token %}
